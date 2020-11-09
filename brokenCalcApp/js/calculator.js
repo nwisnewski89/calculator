@@ -119,6 +119,9 @@ var Calculator = {
             tempResult = NaN;
         } else {
             tempResult = result / currentInput;
+            if(tempResult < 0){
+              tempResult = tempResult * -1;
+            }
         }
         break;
     }
@@ -126,6 +129,8 @@ var Calculator = {
     if (tempResult >  this.maxDisplayableValue ||
         tempResult < -this.maxDisplayableValue) {
       this.result = this.result.toExponential();
+    } else {
+      this.result = Math.round(tempResult);
     }
     if(this.operationsLimit < 3){
       this.currentInput = '';
@@ -199,6 +204,7 @@ var Calculator = {
             }
             break;
           case 'C':
+            this.operationsLimit = 0;
             this.removeCurrentOperationEle();
             this.backSpace();
             break;
